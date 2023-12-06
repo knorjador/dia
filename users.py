@@ -1,5 +1,5 @@
 
-def menu_users(df):
+def menu_users(username, df):
     print('\n')
     print(df)
     print('\n')

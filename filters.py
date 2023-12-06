@@ -1,5 +1,5 @@
 
-def menu_filters(df):
+def menu_filters(username, df):
     print('\n')
     print(df)
     print('\n')
