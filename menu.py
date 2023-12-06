@@ -20,36 +20,46 @@ def welcome(df, message = 'Netflix HAART'):
         ascii += "\\---/"
 
     print('\n' + ascii + '\n')
-    display_menu(df)
+    username = ask_credentials()
+    print('')
+    print('  Bienvenue ' + username)
+    print('')
+    display_menu(username, df)
 
+def ask_credentials():
+    username = input('  Nom d\'utilisateur : ')
+    admin.check_username(username)
+    return username
 
-def display_menu(df):
-    print('  Statistiques ----------------------------- [1]')
-    print('  Recherche de film ------------------------ [2]')
-    print('  Tous les films --------------------------- [3]')
-    print('  Mon compte ------------------------------- [4]')
+def display_menu(username, df):
+    print('  Recherche de film ------------------------ [1]')  
+    print('  Tous les films --------------------------- [2]')
+    print('  Mon compte ------------------------------- [3]')
+    print('  Statistiques ----------------------------- [4]')
     print('  Quitter ---------------------------------- [5]')
-    print('\n')
-    set_choice(df, input('  Choix du menu : '))
+    print('')
+    set_choice(username, df, input('  Choix du menu : '))
 
-def set_choice(df, choice):
+def set_choice(username, df, choice):
     if (choice.isnumeric() and choice in ['1', '2', '3', '4', '5', '6']):
         if (choice != '6'):
             match choice:
                 case '1':
-                    stats.menu_stats(df)
+                    researches.menu_researches(username, df)
                 case '2':
-                    researches.menu_researches(df)
+                    filters.menu_filters(username, df)
                 case '3':
-                    filters.menu_filters(df)
+                    users.menu_users(username, df)
                 case '4':
-                    users.menu_users(df)
+                    stats.menu_stats(username, df)
                 case '5':
-                    print('\n  À bientôt sur Netflix HAART \n')
+                    print('\n  À bientôt ' + username +  '\n')
                     exit(1)
         else:
-            admin.menu_admin(df)
+            admin.menu_admin(username, df)
     else:
-        print('\n Il faut choisir parmi les options proposées.\n')
-        display_menu(df)
+        print('')
+        print('  ' + username + ', il faut choisir parmi les options proposées.')
+        print('')
+        display_menu(username, df)
        
