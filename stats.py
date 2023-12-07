@@ -1,16 +1,16 @@
 
 import menu
 
-def menu_stats(df):
+def menu_stats(username, df):
     print('  Nombre total de films -------------------- [1]')
     print('  Durée totale ----------------------------- [2]')
     print('  Nombre de film en fonction de la langue -- [3]')
     print('  Mon compte ------------------------------- [4]')
     print('  Retour menu principal -------------------- [5]')
     print('\n')
-    set_choice(df, input('  Choix du menu : '))
+    set_choice(username, df, input('  Choix du menu : '))
 
-def set_choice(df, choice):
+def set_choice(username, df, choice):
     if (choice.isnumeric() and choice in ['1', '2', '3', '4', '5']):
         match choice:
             case '1':
@@ -25,7 +25,7 @@ def set_choice(df, choice):
                 menu.display_menu(df)
     else:
         print('\n Il faut choisir parmi les options proposées.\n')
-        menu_stats(df)
+        menu_stats(username, df)
 
 def count_all_movies(df):
     # calculer le nombre total
