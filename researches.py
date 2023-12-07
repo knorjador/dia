@@ -2,6 +2,12 @@ import pandas as pd
 import sys
 import menu
 import random
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+PATH_CSV_USERS = os.getenv('PATH_CSV_USERS')
 
 # def load_data():
 #     csv_credits = pd.read_csv('C:/Users/meuni/Desktop/Projet/nfhaart/data/credits.csv')
@@ -156,7 +162,7 @@ def search_movies(df, genre=None, duration=None, actor=None, language=None):
     
 def add_history_researches(username, ids):
     try:
-        df = pd.read_csv("C:/Users/meuni/Desktop/Projet/nfhaart/data/users.csv")
+        df = pd.read_csv(PATH_CSV_USERS)
     except FileNotFoundError:
         df = pd.DataFrame(columns=['username', 'researches'])
 
@@ -168,7 +174,7 @@ def add_history_researches(username, ids):
     else:
         df = df.append({'username': username, 'researches': str(ids)}, ignore_index=True)
 
-    df.to_csv('C:/Users/meuni/Desktop/Projet/nfhaart/data/users.csv', index=False, header=True)
+    df.to_csv(PATH_CSV_USERS, index=False, header=True)
 
 
 
