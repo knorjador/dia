@@ -16,6 +16,7 @@ def menu_principal(username, df):
     menu.display_menu(username, df)
 
 def menu_researches(username, df):
+    print('')
     print('  Genre ------------------------------ [1]')
     print('  Durée------------------------------- [2]')
     print('  Acteur ----------------------------- [3]')
@@ -44,12 +45,15 @@ def set_choice(username, df, choice):
                     menu_principal(username, df)
                     return
 
-            movies_ids = []
             if result is not None and not result.empty:
+                movies_ids = result['id'].tolist() 
+                print('')
                 for title in result['title']:
-                    print(title) 
+                    print(title)
+                print('')
                 add_history_researches(username, movies_ids)
             else:
+                print('')
                 print("Aucun film trouvé avec les critères donnés.")
                 break
 
@@ -60,6 +64,7 @@ def set_choice(username, df, choice):
             else:
                 quit_input = input("Voulez-vous quitter le logiciel ? (oui/non) ")
                 if quit_input.lower() == 'oui':
+                    print('')
                     sys.exit("Fin du programme.")
                 else:
                     menu_principal(username, df)
@@ -84,11 +89,14 @@ def get_input(prompt, allow_back=False):
 
 # Fonctions pour obtenir chaque critère
 def get_genre(df):
-    return get_input("Quel est votre genre de film (tapez 'back' pour revenir, 'quit' pour quitter) ? ", True)
+    print('')
+    return get_input("Quel est votre genre de film  ? ", True)
+
 
 def get_duration(df):
     while True:
-        duration_input = get_input("Quelle est la durée de film que vous souhaitez regarder (en minutes, 'back' pour revenir, 'quit' pour quitter) ? ", True)
+        print('')
+        duration_input = get_input("Quelle est la durée de film que vous souhaitez regarder (en minutes) ? ", True)
         if duration_input == 'back':
             return None
         try:
@@ -97,10 +105,14 @@ def get_duration(df):
             print("Veuillez entrer un nombre valide.")
 
 def get_actor(df):
-    return get_input("Un acteur particulier ('back' pour revenir, 'quit' pour quitter) ? ", True)
+    print('')
+    return get_input("Un acteur particulier ? ", True)
+
 
 def get_language(df):
-    return get_input("Langue du film ('back' pour revenir, 'quit' pour quitter) ? ", True)
+    print('')
+    return get_input("Langue du film  ? ", True)
+
 
 
 def search_combined_movies(df):
@@ -143,14 +155,21 @@ def search_movies(df, genre=None, duration=None, actor=None, language=None):
         return None
     
 def add_history_researches(username, ids):
-    df = pd.read_csv("C:/Users/meuni/Desktop/Projet/nfhaart/data/users.csv")
-    length = len(df)
-    for i in range(length):
-        if (df.loc[i, 'username'] == username):
-            step = list(eval(df.loc[i, 'researches']))
-            full_history = step + ids
-            df.loc[i, 'researches'] = str(full_history)
-            df.to_csv('C:/Users/meuni/Desktop/Projet/nfhaart/data/users.csv', mode='w', index=False, header=True)
+    try:
+        df = pd.read_csv("C:/Users/meuni/Desktop/Projet/nfhaart/data/users.csv")
+    except FileNotFoundError:
+        df = pd.DataFrame(columns=['username', 'researches'])
+
+    # Trouver l'utilisateur ou ajouter une nouvelle entrée
+    if username in df['username'].values:
+        user_row = df[df['username'] == username].index[0]
+        existing_ids = eval(df.loc[user_row, 'researches'])
+        df.loc[user_row, 'researches'] = str(existing_ids + ids)
+    else:
+        df = df.append({'username': username, 'researches': str(ids)}, ignore_index=True)
+
+    df.to_csv('C:/Users/meuni/Desktop/Projet/nfhaart/data/users.csv', index=False, header=True)
+
 
 
 # def main(username):
