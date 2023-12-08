@@ -32,6 +32,9 @@ def ask_credentials():
     return username
 
 def display_menu(username, df):
+    print('')
+    print('  **** Menu principal ****')
+    print('')
     print('  Recherche de film ------------------------ [1]')  
     print('  Tous les films --------------------------- [2]')
     print('  Mon compte ------------------------------- [3]')
@@ -41,8 +44,8 @@ def display_menu(username, df):
     set_choice(username, df, input('  Choix du menu : '))
 
 def set_choice(username, df, choice):
-    if (choice.isnumeric() and choice in ['1', '2', '3', '4', '5', '6']):
-        if (choice != '6'):
+    if (choice.isnumeric() and choice in ['1', '2', '3', '4', '5', '999']):
+        if (choice != '999'):
             match choice:
                 case '1':
                     researches.menu_researches(username, df)

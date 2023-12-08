@@ -60,18 +60,19 @@ def set_choice(username, df, choice):
                 add_history_researches(username, movies_ids)
             else:
                 print('')
-                print("Aucun film trouvé avec les critères donnés.")
+                print("  Aucun film trouvé avec les critères donnés.")
                 break
 
-            user_input = input("Voulez-vous continuer votre recherche ? (oui/non) ")
+            print('')
+            user_input = input("  Voulez-vous continuer votre recherche ? (oui/non) ")
             if user_input.lower() == 'oui':
                 menu_researches(username, df)
                 return
             else:
-                quit_input = input("Voulez-vous quitter le logiciel ? (oui/non) ")
+                quit_input = input("  Voulez-vous quitter le logiciel ? (oui/non) ")
                 if quit_input.lower() == 'oui':
-                    print('')
-                    sys.exit("Fin du programme.")
+                    print('\n  À bientôt ' + username +  '\n')
+                    exit(1)
                 else:
                     menu_principal(username, df)
                     return
