@@ -2,8 +2,6 @@ import menu
 import random
 import pandas as pd
 import ast
-import rich
-from rich import print
 
 def menu_filters(username, df):
     print('  Navigueur dans les films ----------- [1]')
@@ -22,7 +20,7 @@ def set_choice(username, df, choice):
             case '2':
                 choisir_genre(df)
             case '3':
-                choisir_duree(df)
+                choisir_duree(username, df)
             case '4':
                 choisir_pays(df)
             case '5':
@@ -82,7 +80,7 @@ def choisir_genre(df):
     # On affiche le résultat
     print(result)
 
-def choisir_duree(df):
+def choisir_duree(username, df):
     df_runtime = pd.DataFrame({
         'id': df['id'],
         'runtime': df['runtime']
@@ -92,8 +90,9 @@ def choisir_duree(df):
     print('  Entre 1h et 1h30 -------------------------- [2]')
     print('  Entre 1h30 et 2h -------------------------- [3]')
     print('  2h et plus long --------------------------- [4]')
+    print('  Retour aux filtres ------------------------ [5]')
     print('\n')
-    choice_runtime(df_runtime, input('  Choix de la durée : '))
+    choice_runtime(df_runtime, input('  Choix de la durée : '), username, df)
 
 def choisir_pays(df):
     df_pays = pd.DataFrame({
@@ -109,8 +108,8 @@ def choisir_pays(df):
 
 
 
-def choice_runtime(df_runtime, choice):
-    if(choice.isnumeric() and choice in ['1', '2', '3', '4']):
+def choice_runtime(df_runtime, choice, username, df):
+    if(choice.isnumeric() and choice in ['1', '2', '3', '4','5']):
         match choice:
             case '1':
                 # Pour 0 à 1h
@@ -155,6 +154,10 @@ def choice_runtime(df_runtime, choice):
                 print("Valeurs aléatoires dans la colonne 'id' avec un 'runtime' supérieur à 120 :")
                 for id_val, runtime_val in valeurs_aleatoires:
                     print(f"id: {id_val}, runtime: {runtime_val}")
+                
+            case '5':
+                menu_filters(username, df)
 
     else:
         print('\n Il faut choisir parmi les options proposées.\n')
+        choisir_duree(df_runtime)
