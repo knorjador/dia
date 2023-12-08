@@ -5,31 +5,31 @@ import ast
 import rich
 from rich import print
 
-def menu_filters(df):
-    print('  Ajouter un genre-------------------- [1]')
-    print('  Ajouter une durée ------------------ [2]')
-    print('  Ajouter un pays -------------------- [3]')
-    print('  Affiche Film ----------------------- [4]')
+def menu_filters(username, df):
+    print('  Navigueur dans les films ----------- [1]')
+    print('  Filtrer par genre------------------- [2]')
+    print('  Filtrer par durée ------------------ [3]')
+    print('  Filtrer par pays ------------------- [4]')
     print('  Retour menu principal -------------- [5]')
     print('\n')
-    set_choice(df, input('  Choix du menu : '))
+    set_choice(username, df, input('  Choix du menu : '))
 
-def set_choice(df, choice):
+def set_choice(username, df, choice):
     if(choice.isnumeric() and choice in ['1', '2', '3', '4','5']):
         match choice:
             case '1':
-                choisir_genre(df)
-            case '2':
-                choisir_duree(df)
-            case '3':
-                choisir_pays(df)
-            case '4':
                 afficheFilm(df)
+            case '2':
+                choisir_genre(df)
+            case '3':
+                choisir_duree(df)
+            case '4':
+                choisir_pays(df)
             case '5':
                 menu.display_menu(df)
     else:
         print('\n Il faut choisir parmi les options proposées.\n')
-        menu_filters(df)
+        menu_filters(username, df)
 
 def afficheFilm(df):
     df_film = df['title']
@@ -38,7 +38,10 @@ def afficheFilm(df):
     while True:
         # Afficher les 5 lignes à partir de la position actuelle
         group = df_film.iloc[current_position:current_position + 5]
-        print(group)
+        print('')
+        for i, x in group.items():
+            print('  > ' + x)
+        print('')
 
         # Demander à l'utilisateur d'entrer "+", "-", ou "q"
         user_input = input("Entrez '+' pour afficher les 5 suivants, '-' pour afficher les 5 précédents, ou 'q' pour quitter: ")
