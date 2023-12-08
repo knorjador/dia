@@ -58,30 +58,42 @@ def afficheFilm(username, df):
 
 
 
-# Fonction pour extraire l'id et les valeurs de la clé 'name'
+# Fonction pour extraire l'id, le titre et les valeurs de la clé 'name'
 def extract_names(row):
+    title_value = row['title']
     genre_list = row['genres']
     id_value = row['id']
     
     # Utilise une liste en compréhension pour extraire les valeurs 'name'
     names = [genre['name'] for genre in genre_list]
     
-    return id_value, names
+    return title_value, names, id_value
 
 def choisir_genre(username, df):
     df_genres = pd.DataFrame({
-        'id': df['id'],
-        'genres': df['genres']
+        'title': df['title'],
+        'genres': df['genres'],
+        'id': df['id']
     })
 
     # Convertir la colonne 'genre' en listes de dictionnaires
     df_genres['genres'] = df_genres['genres'].apply(ast.literal_eval)
     # Appliquation de la fonction à chaque ligne du DataFrame
     result = df_genres.apply(extract_names, axis=1, result_type='expand')
-    result.columns = ['id', 'genre_names']
+    result.columns = ['title', 'genre_names','id']
 
+    # print(result)
+
+    print('')
+    for i, x in result.iterrows():
+        if i < 5:
+            print(x['title'] + '     ' + ' '.join(x['genre_names']))
+        else:
+            break
+        # print('  > ' + x)
+    print('')
     # On affiche le résultat
-    print(result)
+    # print(result['title'], result['genre_names'])
     menu_filters(username, df)
 
 def choisir_duree(username, df):
