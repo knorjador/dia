@@ -21,7 +21,7 @@ mlruns/
 pyvenv.cfg
 share/
 pyvenv.cfg
-
+data
 
 
 # C extensions
