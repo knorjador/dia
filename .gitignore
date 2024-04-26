@@ -4,10 +4,15 @@
 
 # venv
 **/bin/
+**/etc/
 **/include/
 **/lib/
-**/lib64/
+**/lib64
 **/venv/
 **/pyvenv.cfg
 
 # custom
+data/
+docs/
+misc/
+tmp/

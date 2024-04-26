@@ -1,0 +1,11 @@
+Les premiers travaux en traitement automatique du langage naturel commencent dans les années 1950, 
+principalement aux États-Unis où le contexte politique, lié à la guerre froide, 
+est propice au développement de la thématique de la traduction automatique.
+
+Les premières applications informatiques sont liées au traitement automatique des conversations. 
+En 1950, dans son article fondateur de l'intelligence artificielle, « Computing machinery and intelligence », 
+Alan Turing expose une méthode d'évaluation qui sera appelée par la suite « test de Turing » ou « critère de Turing ». 
+Ce test mesure le degré d'intelligence d'une machine, à partir de la capacité d'un programme conversationnel 
+à se faire passer pour un être humain : dans un échange de messages écrits, un sujet humain doit déterminer 
+si son interlocuteur est une machine ou non1. La base employée est cependant fragile pour évaluer l'intelligence artificielle, 
+car l'impression d'un unique utilisateur dépend de trop de facteurs liés au milieu ambiant pour être érigée en règle 2.

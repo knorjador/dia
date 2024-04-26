@@ -13,7 +13,7 @@ from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler, MinMaxScaler
-from sklearn.metrics import mean_absolute_error, accuracy_score
+from sklearn.metrics import mean_absolute_error, mean_squared_error, accuracy_score, r2_score
 from sklearn.linear_model import LinearRegression
 
 warnings.simplefilter(action = 'ignore', category = FutureWarning)
@@ -270,12 +270,14 @@ lr.fit(X_train_transformed, y_train)
 
 lr_train_preds = lr.predict(X_train_transformed)
 mae_lr_train_preds = mean_absolute_error(y_train, lr_train_preds)
+mse_lr_train_preds = mean_squared_error(y_train, lr_train_preds)
 
 lr_test_preds = lr.predict(X_test_transformed)
 mae_lr_test_preds = mean_absolute_error(y_test, lr_test_preds)
+mse_lr_test_preds = mean_squared_error(y_test, lr_test_preds)
 
-display(mae_lr_train_preds, 'MAE linear regression train predictions')
-display(mae_lr_test_preds, 'MAE linear regression test predictions')
+# display(mae_lr_train_preds, 'MAE linear regression train predictions')
+# display(mae_lr_test_preds, 'MAE linear regression test predictions')
 
 params = {
 
@@ -283,21 +285,26 @@ params = {
 
 }
 
+metrics = {
+
+    "mae_train": mae_lr_train_preds, 
+    "mse_train": mse_lr_train_preds, 
+    "rmse_train": np.sqrt(mse_lr_train_preds), 
+    "mae_test": mae_lr_test_preds, 
+    "mse_test": mse_lr_test_preds, 
+    "rmse_test": np.sqrt(mse_lr_test_preds),
+    "r2_score_test": r2_score(y_test, lr_test_preds)
+
+}
+
 # start an MLflow run
 with mlflow.start_run():
-    # log hyperparameters
     mlflow.log_params(params)
-
-    # log the loss metric
-    mlflow.log_metric("MAE train", mae_lr_train_preds)
     # mlflow.log_metric("MAE test", mae_lr_test_preds)
-
-    # set tag
+    mlflow.log_metrics(metrics)
     mlflow.set_tag("First set_tag", "Second set_tag")
-
     # infer model signature
     signature = infer_signature(X_train_transformed, lr.predict(X_train_transformed))
-
     # log model
     model_info = mlflow.sklearn.log_model(
 
