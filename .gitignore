@@ -11,6 +11,9 @@
 **/venv/
 **/pyvenv.cfg
 
+# jupyter 
+**/.ipynb_checkpoints/
+
 # custom
 data/
 docs/
