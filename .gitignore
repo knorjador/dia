@@ -17,6 +17,9 @@ venv/
 jupyter/
 **/.ipynb_checkpoints/
 
+# flask 
+**/.flaskenv
+
 # custom
 data/
 docs/
