@@ -3,6 +3,8 @@
 **/__pycache__/
 
 # venv
+venv/
+**/venv/
 **/bin/
 **/etc/
 **/include/
@@ -11,7 +13,8 @@
 **/venv/
 **/pyvenv.cfg
 
-# jupyter 
+# jupyter
+jupyter/
 **/.ipynb_checkpoints/
 
 # custom
