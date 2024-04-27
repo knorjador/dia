@@ -1,0 +1,13 @@
+
+.wrapper_iframe {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 100px;
+}
+
+.wrapper_iframe > iframe {
+    width: 90%;
+    min-height: 1700px;
+}
