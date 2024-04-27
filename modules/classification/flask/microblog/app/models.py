@@ -1,12 +1,15 @@
 
+import sqlalchemy as sa
+import sqlalchemy.orm as so
+
 from datetime import datetime, timezone
 from hashlib import md5
 from typing import Optional
-import sqlalchemy as sa
-import sqlalchemy.orm as so
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
+
 from app import db, login
+
 
 followers = sa.Table(
     'followers',
@@ -14,6 +17,7 @@ followers = sa.Table(
     sa.Column('follower_id', sa.Integer, sa.ForeignKey('user.id'), primary_key=True),
     sa.Column('followed_id', sa.Integer, sa.ForeignKey('user.id'), primary_key=True)
 )
+
 
 class User(UserMixin, db.Model):
     id: so.Mapped[int] = sa.Column(sa.Integer, primary_key=True, nullable=False)
