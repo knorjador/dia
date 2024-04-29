@@ -170,7 +170,6 @@ def train(model, process, hyparams, feature_selection=False):
         scoring["execution_time"] = end_time - start_time
 
         return scoring
-
     except Exception as e:
         print()
         print()
