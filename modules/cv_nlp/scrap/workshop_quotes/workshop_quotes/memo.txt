@@ -1,0 +1,15 @@
+
+https://docs.scrapy.org/en/latest/intro/tutorial.html
+
+scrapy startproject £PTOJECT_NAME
+scrapy crawl quotes
+scrapy shell 'https://quotes.toscrape.com/page/1/'
+scrapy shell 'https://quotes.toscrape.com'
+scrapy crawl quotes -O quotes.json
+scrapy crawl authors
+scrapy crawl authors -O authors.json
+scrapy crawl quotes -O quotes_humor.json -a tag=humor
+scrapy runspider quotes_spider.py -o quotes_spider.jsonl
+
+
+ssh -i $HOME/.ssh/dev -p 16126 -N -L 4444:127.0.0.1:8080 devio@91.121.55.225
